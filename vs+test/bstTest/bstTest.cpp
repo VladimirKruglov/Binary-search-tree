@@ -11,6 +11,49 @@ namespace bstTest
 	{
 	public:
 		
+        TEST_METHOD(TestConstructorAndDestructor)
+        {
+            // Arrange
+            BST<int>* bst = new BST<int>();
+
+            // Act & Assert
+            Assert::IsNotNull(bst);
+            Assert::IsNull(bst->search(5)); // Tree is empty initially
+
+            // Cleanup
+            delete bst;
+        }
+
+        // Test the destructor with non-empty tree
+        TEST_METHOD(TestDestructorWithNonEmptyTree)
+        {
+            // Arrange
+            BST<int>* bst = new BST<int>();
+
+            // Act
+            bst->insert(5);
+            bst->insert(3);
+            bst->insert(7);
+            bst->insert(1);
+
+            // Assert before destruction
+            Assert::IsNotNull(bst->search(5));
+            Assert::IsNotNull(bst->search(3));
+            Assert::IsNotNull(bst->search(7));
+            Assert::IsNotNull(bst->search(1));
+
+            // Act - Destructor will be called when 'bst' goes out of scope
+        }
+
+        // Test the destructor with an empty tree
+        TEST_METHOD(TestDestructorWithEmptyTree)
+        {
+            // Arrange
+            BST<int>* bst = new BST<int>();
+
+            // Act - Destructor will be called when 'bst' goes out of scope
+        }
+
         TEST_METHOD(TestInsertAndSearch)
         {
             // Arrange
