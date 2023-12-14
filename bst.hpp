@@ -1,18 +1,7 @@
 #ifndef BST_HPP
 #define BST_HPP
-
-template<typename T>
-struct Node {
-    T key;
-    Node<T>* left;
-    Node<T>* right;
-
-    /**
-    * @brief Конструктор узла
-    * @param key Ключ узла
-    */
-    explicit Node(T key) : key(key), left(nullptr), right(nullptr) {}
-};
+#include "node.hpp"
+#include <sstream>
 
 template<typename T>
 class BST {
@@ -45,6 +34,7 @@ private:
     /**
     * @brief Вывод узлов дерева в центрированном порядке
     * @param root Корень дерева
+    * @param os Выходной поток
     */
     void inorder(Node<T>* root) const;
 
@@ -61,6 +51,30 @@ public:
     * @brief Конструктор дерева
     */
     BST();
+
+    /**
+    * @brief Конструктор копирования
+    * @param other Копируемое дерево
+    */
+    BST(const BST<T>& other) = delete;
+
+    /**
+    * @brief Конструктор перемещения
+    * @param other Копируемое дерево
+    */
+	BST(BST<T>&& other) noexcept = default;
+
+    /**
+    * @brief Оператор присваивания копированием
+    * @param other Копируемое дерево
+    */
+    BST& operator=(const BST<T>& other) = delete;
+
+    /**
+    * @brief Оператор присваивания перемещением
+    * @param other Копируеое дерево
+    */
+    BST& operator=(BST&& other) noexcept = default;
 
     /**
     * @brief Деструктор дерева
@@ -82,7 +96,7 @@ public:
     /**
     * @brief Вывод дерева
     */
-    void printTree() const;
+    void print() const;
 
     /**
     * @brief Поиск ключа в дереве
@@ -136,7 +150,6 @@ Node<T>* BST<T>::deleteNode(Node<T>* root, T key) {
     return root;
 }
 
-
 template<typename T>
 Node<T>* BST<T>::minValueNode(Node<T>* node) {
     Node<T>* current = node;
@@ -184,9 +197,15 @@ void BST<T>::deleteKey(T key) {
 }
 
 template<typename T>
-void BST<T>::printTree() const {
+void BST<T>::print() const {
     inorder(root);
     std::cout << "\n";
+}
+
+template<typename T>
+std::ostream& operator<<(std::ostream& os, const BST<T>& bst) {
+    bst.print();
+    return os;
 }
 
 template<typename T>
