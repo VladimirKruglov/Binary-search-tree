@@ -1,17 +1,5 @@
-#pragma once
-
-template<typename T>
-struct Node {
-    T key;
-    Node<T>* left;
-    Node<T>* right;
-
-    /**
-    * @brief Конструктор узла
-    * @param key Ключ узла
-    */
-    explicit Node(T key) : key(key), left(nullptr), right(nullptr) {}
-};
+#include "node.h"
+#include <sstream>
 
 template<typename T>
 class BST {
@@ -24,7 +12,7 @@ private:
     * @param key Ключ для добавления
     * @return Узел дерева
     */
-    Node<T>* insert(Node<T>* node, T key);
+    Node<T>* insert(Node<T>* node, T key);//
 
     /**
     * @brief Удаление ключа из узла дерева
@@ -32,18 +20,12 @@ private:
     * @param key Ключ для удаления
     * @return Узел дерева.
     */
-    Node<T>* deleteNode(Node<T>* root, T key);
-
-    /**
-    * @brief Наименьший узел в дереве
-    * @param node Узел для поиска
-    * @return Узел с наименьшим ключом
-    */
-    Node<T>* minValueNode(Node<T>* node);
+    Node<T>* deleteNode(Node<T>* root, T key);//
 
     /**
     * @brief Вывод узлов дерева в центрированном порядке
     * @param root Корень дерева
+    * @param os Выходной поток
     */
     void inorder(Node<T>* root) const;
 
@@ -53,13 +35,37 @@ private:
     * @param key Ключ для поиска
     * @return Узел с ключом, если он существует
     */
-    Node<T>* search(Node<T>* root, T key) const;
+    Node<T>* search(Node<T>* root, T key) const;//
 
 public:
     /**
     * @brief Конструктор дерева
     */
     BST();
+
+    /**
+    * @brief Конструктор копирования
+    * @param other Копируемое дерево
+    */
+    BST(const BST<T>& other) = delete;
+
+    /**
+    * @brief Конструктор перемещения
+    * @param other Копируемое дерево
+    */
+    BST(BST<T>&& other) noexcept = default;
+
+    /**
+    * @brief Оператор присваивания копированием
+    * @param other Копируемое дерево
+    */
+    BST& operator=(const BST<T>& other) = delete;
+
+    /**
+    * @brief Оператор присваивания перемещением
+    * @param other Копируеое дерево
+    */
+    BST& operator=(BST&& other) noexcept = default;
 
     /**
     * @brief Деструктор дерева
@@ -81,7 +87,7 @@ public:
     /**
     * @brief Вывод дерева
     */
-    void printTree() const;
+    void print() const;
 
     /**
     * @brief Поиск ключа в дереве
@@ -89,10 +95,28 @@ public:
     * @return Узел с ключом, если он существует
     */
     Node<T>* search(T key) const;
+
+    /**
+    * @brief Наименьший узел в дереве
+    * @param node Узел для поиска
+    * @return Узел с наименьшим ключом
+    */
+    Node<T>* minValueNode(Node<T>* node);
+
+    /**
+   * @brief Получить корень дерева
+   * @return Корень
+   */
+    Node<T>* getRoot();
 };
 
 template<typename T>
 BST<T>::BST() : root(nullptr) {}
+
+template<typename T>
+Node<T>* BST<T>::getRoot() {
+    return root;
+}
 
 template<typename T>
 Node<T>* BST<T>::insert(Node<T>* node, T key) {
@@ -135,15 +159,16 @@ Node<T>* BST<T>::deleteNode(Node<T>* root, T key) {
     return root;
 }
 
-
 template<typename T>
-Node<T>* BST<T>::minValueNode(Node<T>* node) {
-    Node<T>* current = node;
+Node<T>* BST<T>::minValueNode(Node<T>* root) {
+    if (root == nullptr)
+        return nullptr;
 
-    while (current && current->left != nullptr)
-        current = current->left;
+    else if (root->left == nullptr)
+        return root;
 
-    return current;
+    else
+        return minValueNode(root->left);
 }
 
 template<typename T>
@@ -183,9 +208,15 @@ void BST<T>::deleteKey(T key) {
 }
 
 template<typename T>
-void BST<T>::printTree() const {
+void BST<T>::print() const {
     inorder(root);
     std::cout << "\n";
+}
+
+template<typename T>
+std::ostream& operator<<(std::ostream& os, const BST<T>& bst) {
+    bst.print();
+    return os;
 }
 
 template<typename T>
@@ -194,4 +225,3 @@ Node<T>* BST<T>::search(T key) const {
 }
 
 template class BST<int>;
-
