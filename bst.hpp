@@ -25,13 +25,6 @@ private:
     Node<T>* deleteNode(Node<T>* root, T key);
 
     /**
-    * @brief Наименьший узел в дереве
-    * @param node Узел для поиска
-    * @return Узел с наименьшим ключом
-    */
-    Node<T>* minValueNode(Node<T>* node);
-
-    /**
     * @brief Вывод узлов дерева в центрированном порядке
     * @param root Корень дерева
     * @param os Выходной поток
@@ -104,10 +97,28 @@ public:
     * @return Узел с ключом, если он существует
     */
     Node<T>* search(T key) const;
+
+    /**
+    * @brief Наименьший узел в дереве
+    * @param node Узел для поиска
+    * @return Узел с наименьшим ключом
+    */
+    Node<T>* minValueNode(Node<T>* node);
+
+     /**
+    * @brief Получить корень дерева
+    * @return Корень
+    */
+    Node<T>* getRoot();
 };
 
 template<typename T>
 BST<T>::BST() : root(nullptr) {}
+
+template<typename T>
+Node<T>* BST<T>::getRoot() {
+    return root;
+}
 
 template<typename T>
 Node<T>* BST<T>::insert(Node<T>* node, T key) {
@@ -151,13 +162,15 @@ Node<T>* BST<T>::deleteNode(Node<T>* root, T key) {
 }
 
 template<typename T>
-Node<T>* BST<T>::minValueNode(Node<T>* node) {
-    Node<T>* current = node;
-
-    while (current && current->left != nullptr)
-        current = current->left;
-
-    return current;
+Node<T>* BST<T>::minValueNode(Node<T>* root) {
+    if (root == nullptr)
+        return nullptr;
+    
+    else if (root->left == nullptr)
+        return root;
+    
+    else 
+        return minValueNode(root->left);
 }
 
 template<typename T>

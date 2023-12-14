@@ -30,5 +30,12 @@ int main() {
         std::cout << "Узел с ключом 60 не найден в дереве\n";
     
     std::cout << tree;
+
+    Node<int>* minNode = tree.minValueNode(tree.getRoot());
+    if (minNode != nullptr)
+        std::cout << "Минимальный элемент: " << minNode->key << std::endl;
+    else 
+        std::cout << "Дерево пустое" << std::endl;
+
     return 0;
 }
