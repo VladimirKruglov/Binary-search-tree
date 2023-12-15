@@ -19,11 +19,6 @@ struct Node {
     explicit Node(T key) : key(key), left(nullptr), right(nullptr) {}
     
     /**
-    * @brief Деструктор узла
-    */
-    ~Node();
-    
-    /**
     * @brief Конструктор копирования
     * @param other Копируемый узел
     */
@@ -61,11 +56,5 @@ struct Node {
 
 template <typename T>
 Node<T>::Node() : key{ 0 }, left{ nullptr }, right{ nullptr } {}
-
-template<typename T>
-Node<T>::~Node() {
-    delete left;
-    delete right;
-}
 
 #endif

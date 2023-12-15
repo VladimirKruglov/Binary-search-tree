@@ -29,7 +29,7 @@ private:
     * @param root Корень дерева
     * @param os Выходной поток
     */
-    void inorder(Node<T>* root) const;
+    void inorder(Node<T>* root, std::ostream& os) const;
 
     /**
     * @brief Поиск ключа в дереве
@@ -110,6 +110,16 @@ public:
     * @return Корень
     */
     Node<T>* getRoot();
+
+    /**
+    * @brief Дерево в строку 
+    * @return Строка
+    */
+    std::string to_string() const {
+        std::ostringstream oss;
+        inorder(root, oss);
+        return oss.str();
+}
 };
 
 template<typename T>
@@ -174,11 +184,11 @@ Node<T>* BST<T>::minValueNode(Node<T>* root) {
 }
 
 template<typename T>
-void BST<T>::inorder(Node<T>* root) const {
+void BST<T>::inorder(Node<T>* root, std::ostream& os) const{
     if (root != nullptr) {
-        inorder(root->left);
-        std::cout << root->key << " ";
-        inorder(root->right);
+        inorder(root->left, os);
+        os << root->key << " ";
+        inorder(root->right, os);
     }
 }
 
@@ -211,8 +221,9 @@ void BST<T>::deleteKey(T key) {
 
 template<typename T>
 void BST<T>::print() const {
-    inorder(root);
-    std::cout << "\n";
+    std::ostringstream oss;
+    inorder(root, oss);
+    std::cout << oss.str() << "\n";
 }
 
 template<typename T>

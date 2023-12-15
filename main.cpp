@@ -37,5 +37,13 @@ int main() {
     else 
         std::cout << "Дерево пустое" << std::endl;
 
+    tree.deleteKey(60);
+    std::cout << tree;
+
+    tree.insert(45);
+    std::cout << tree;
+
+    std::cout << tree.to_string();
+
     return 0;
 }
