@@ -1,5 +1,17 @@
-#include "node.h"
-#include <sstream>
+#pragma once
+
+template<typename T>
+struct Node {
+    T key;
+    Node<T>* left;
+    Node<T>* right;
+
+    /**
+    * @brief пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
+    * @param key пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
+    */
+    explicit Node(T key) : key(key), left(nullptr), right(nullptr) {}
+};
 
 template<typename T>
 class BST {
@@ -7,116 +19,80 @@ private:
     Node<T>* root;
 
     /**
-    * @brief Вставка ключа в узел дерева
-    * @param node Узел для добавления
-    * @param key Ключ для добавления
-    * @return Узел дерева
+    * @brief пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+    * @param node пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    * @param key пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    * @return пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
     */
-    Node<T>* insert(Node<T>* node, T key);//
+    Node<T>* insert(Node<T>* node, T key);
 
     /**
-    * @brief Удаление ключа из узла дерева
-    * @param root Корневой узел
-    * @param key Ключ для удаления
-    * @return Узел дерева.
+    * @brief пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+    * @param root пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
+    * @param key пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    * @return пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ.
     */
-    Node<T>* deleteNode(Node<T>* root, T key);//
+    Node<T>* deleteNode(Node<T>* root, T key);
 
     /**
-    * @brief Вывод узлов дерева в центрированном порядке
-    * @param root Корень дерева
-    * @param os Выходной поток
-    */
-    void inorder(Node<T>* root) const;
-
-    /**
-    * @brief Поиск ключа в дереве
-    * @param root Корень дерева
-    * @param key Ключ для поиска
-    * @return Узел с ключом, если он существует
-    */
-    Node<T>* search(Node<T>* root, T key) const;//
-
-public:
-    /**
-    * @brief Конструктор дерева
-    */
-    BST();
-
-    /**
-    * @brief Конструктор копирования
-    * @param other Копируемое дерево
-    */
-    BST(const BST<T>& other) = delete;
-
-    /**
-    * @brief Конструктор перемещения
-    * @param other Копируемое дерево
-    */
-    BST(BST<T>&& other) noexcept = default;
-
-    /**
-    * @brief Оператор присваивания копированием
-    * @param other Копируемое дерево
-    */
-    BST& operator=(const BST<T>& other) = delete;
-
-    /**
-    * @brief Оператор присваивания перемещением
-    * @param other Копируеое дерево
-    */
-    BST& operator=(BST&& other) noexcept = default;
-
-    /**
-    * @brief Деструктор дерева
-    */
-    ~BST();
-
-    /**
-    * @brief Вставка ключа в дерево
-    * @param key Ключ для вставки
-    */
-    void insert(T key);
-
-    /**
-    * @brief Удаление ключа из дерева
-    * @param key Ключ для удаления
-    */
-    void deleteKey(T key);
-
-    /**
-    * @brief Вывод дерева
-    */
-    void print() const;
-
-    /**
-    * @brief Поиск ключа в дереве
-    * @param key Ключ для поиска
-    * @return Узел с ключом, если он существует
-    */
-    Node<T>* search(T key) const;
-
-    /**
-    * @brief Наименьший узел в дереве
-    * @param node Узел для поиска
-    * @return Узел с наименьшим ключом
+    * @brief пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+    * @param node пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+    * @return пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
     */
     Node<T>* minValueNode(Node<T>* node);
 
     /**
-   * @brief Получить корень дерева
-   * @return Корень
-   */
-    Node<T>* getRoot();
+    * @brief пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    * @param root пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+    */
+    void inorder(Node<T>* root) const;
+
+    /**
+    * @brief пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+    * @param root пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+    * @param key пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+    * @return пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    */
+    Node<T>* search(Node<T>* root, T key) const;
+
+public:
+    /**
+    * @brief пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+    */
+    BST();
+
+    /**
+    * @brief пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+    */
+    ~BST();
+
+    /**
+    * @brief пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+    * @param key пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    */
+    void insert(T key);
+
+    /**
+    * @brief пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+    * @param key пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    */
+    void deleteKey(T key);
+
+    /**
+    * @brief пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+    */
+    void printTree() const;
+
+    /**
+    * @brief пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+    * @param key пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+    * @return пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    */
+    Node<T>* search(T key) const;
 };
 
 template<typename T>
 BST<T>::BST() : root(nullptr) {}
-
-template<typename T>
-Node<T>* BST<T>::getRoot() {
-    return root;
-}
 
 template<typename T>
 Node<T>* BST<T>::insert(Node<T>* node, T key) {
@@ -159,16 +135,15 @@ Node<T>* BST<T>::deleteNode(Node<T>* root, T key) {
     return root;
 }
 
+
 template<typename T>
-Node<T>* BST<T>::minValueNode(Node<T>* root) {
-    if (root == nullptr)
-        return nullptr;
+Node<T>* BST<T>::minValueNode(Node<T>* node) {
+    Node<T>* current = node;
 
-    else if (root->left == nullptr)
-        return root;
+    while (current && current->left != nullptr)
+        current = current->left;
 
-    else
-        return minValueNode(root->left);
+    return current;
 }
 
 template<typename T>
@@ -208,15 +183,9 @@ void BST<T>::deleteKey(T key) {
 }
 
 template<typename T>
-void BST<T>::print() const {
+void BST<T>::printTree() const {
     inorder(root);
     std::cout << "\n";
-}
-
-template<typename T>
-std::ostream& operator<<(std::ostream& os, const BST<T>& bst) {
-    bst.print();
-    return os;
 }
 
 template<typename T>
@@ -225,3 +194,4 @@ Node<T>* BST<T>::search(T key) const {
 }
 
 template class BST<int>;
+

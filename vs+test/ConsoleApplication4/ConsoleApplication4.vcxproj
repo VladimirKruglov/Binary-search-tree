@@ -128,11 +128,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ConsoleApplication4.cpp" />
-    <ClCompile Include="node.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bst.h" />
-    <ClInclude Include="node.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
