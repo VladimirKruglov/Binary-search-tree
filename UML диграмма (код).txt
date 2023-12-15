@@ -1,0 +1,40 @@
+@startuml
+class Node
+{  
+-{field}T key
+-{field}Node* left
+-{field}Node* right
++{method}Node()
++{method}explicit Node(T key) : key(key), left(nullptr), right(nullptr)
++{method}Node(const Node& other) = delete
++{method}Node& operator =(const Node& node) = delete
++{method}Node(Node&& other) noexcept = default
++{method}Node& operator=(Node&& other) noexcept = default
++{method}friend std::ostream& operator<<(std::ostream& stream, const Node& node)
+}
+
+class BST
+{
+-{field}Node<T>* root
+-{method}Node<T>* insert(Node<T>* node, T key)
+-{method}Node<T>* deleteNode(Node<T>* root, T key)
+-{method}void inorder(Node<T>* root, std::ostream& os) const
+-{method}Node<T>* search(Node<T>* root, T key) const
+-{method}Node<T>* search(Node<T>* root, T key) const
++{method}BST()
++{method}BST(BST<T>&& other) noexcept = default
++{method}BST(const BST<T>& other) = delete
++{method}BST& operator=(const BST<T>& other) = delete
++{method}BST& operator=(BST&& other) noexcept = default
++{method}~BST()
++{method}void insert(T key)
++{method}void deleteKey(T key)
++{method}void print() const
++{method}Node<T>* search(T key) const
++{method}Node<T>* minValueNode(Node<T>* node)
++{method}Node<T>* getRoot()
++{method}string to_string() const
+}
+
+BST *-- Node
+@enduml
